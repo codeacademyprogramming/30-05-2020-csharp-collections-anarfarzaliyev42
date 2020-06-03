@@ -105,7 +105,7 @@ namespace Test
             DebtorTask19(debtors);
             Console.WriteLine("\n--------------------'Smile' can be created from name of this debtors\n");
             DebtorTask20(debtors);
-          
+
             Console.ReadKey();
         }
         static void DebtorTask20(List<Debtor> list)
@@ -114,24 +114,23 @@ namespace Test
             for (int i = 0; i < list.Count; i++)
             {
                 int indexOfSpace = list[i].FullName.IndexOf(" ");
-                string firstName = list[i].FullName.Substring(0,indexOfSpace);
-                string lastName = list[i].FullName.Substring(indexOfSpace+4);
-                string fullName = String.Concat(firstName,lastName);
-               
+                string firstName = list[i].FullName.Substring(0, indexOfSpace);
+                string lastName = list[i].FullName.Substring(indexOfSpace + 4);
+                string fullName = String.Concat(firstName, lastName);
+                char[] wantedWord = new char[] { 's', 'm', 'i', 'l', 'e' };
                 List<char> nameChars = fullName.ToLower().ToCharArray().ToList();
                 int oldLength = nameChars.Count;
-     
 
-                nameChars.Remove('s');
-                nameChars.Remove('m');
-                nameChars.Remove('i');
-                nameChars.Remove('l');
-                nameChars.Remove('e');
+                foreach (var item in wantedWord)
+                {
+                    nameChars.Remove(item);
+                }
+
                 int newLength = nameChars.Count;
 
-                if ((oldLength - newLength) >= 5)
+                if ((oldLength - newLength) == wantedWord.Length)
                 {
-                    
+
                     Console.WriteLine(list[i].ToString());
                 }
 
