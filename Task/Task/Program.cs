@@ -71,17 +71,23 @@ namespace Test
                 new Debtor("Lakisha R. Forrest", DateTime.Parse("December 1, 1973"), "334-830-1181", "LakishaRForrest@armyspy.com", "3121 Quarry Drive Montgomery, AL 36117", 3088),
                 new Debtor("Pamela H. Beauchamp", DateTime.Parse("November 20, 1959"), "801-529-6347", "PamelaHBeauchamp@jourrapide.com", "3239 Tori Lane Salt Lake City, UT 84104", 6588)
             };
+            // DebtorTask2
             Console.WriteLine("\n---------------------Debtors selected by domain names:\n");
             List<Debtor> domainDebtors = GetDebtorByDomain(debtors, "NormaMNew@jourrapide.com");
+            // DebtorTask3
             domainDebtors.ForEach(x => Console.WriteLine(x.ToString()));
             Console.WriteLine("\n---------------------Debtors selected by ages :\n");
+            // DebtorTask4
             List<Debtor> ageDebtors = GetDebtorByAge(debtors, 26, 36);
             ageDebtors.ForEach(x => Console.WriteLine(x.ToString()));
+            // DebtorTask5
             Console.WriteLine("\n---------------------Debtors selected by specific amount of debt :\n");
             List<Debtor> debtDebtors = GetDebtorByAmountOfDebt(debtors, 5000);
             debtDebtors.ForEach(x => Console.WriteLine(x.ToString()));
+            // DebtorTask7
             Console.WriteLine("\n---------------------Debtors selected by symbol size and phone number :\n");
             GetDebtorsBySymbolAndPhoneNumber(debtors);
+            // DebtorTask8
             Console.WriteLine("\n---------------------Debtors born in winter :\n");
             List<Debtor> debtorsBornInWinter = GetDebtorsBornInWinter(debtors);
             debtorsBornInWinter.ForEach(x => Console.WriteLine(x.ToString()));
@@ -110,14 +116,15 @@ namespace Test
         }
         static void DebtorTask20(List<Debtor> list)
         {
-
+            char[] wantedWord = new char[] { 's', 'm', 'i', 'l', 'e' };
             for (int i = 0; i < list.Count; i++)
             {
+                // Get name and surname from fullname by space
                 int indexOfSpace = list[i].FullName.IndexOf(" ");
                 string firstName = list[i].FullName.Substring(0, indexOfSpace);
                 string lastName = list[i].FullName.Substring(indexOfSpace + 4);
                 string fullName = String.Concat(firstName, lastName);
-                char[] wantedWord = new char[] { 's', 'm', 'i', 'l', 'e' };
+               
                 List<char> nameChars = fullName.ToLower().ToCharArray().ToList();
                 int oldLength = nameChars.Count;
 
@@ -303,24 +310,9 @@ namespace Test
         }
         static void DebtorTask9(List<Debtor> list)
         {
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                int count = 0;
-                string phoneNumber = list[i].Phone;
-                foreach (var item in phoneNumber)
-                {
-                    if (item == '8')
-                    {
-                        count++;
-                    }
-                }
-                if (count == 0)
-                {
-                    int age = CalculateAge(list[i].BirthDay);
-                    Console.WriteLine($"FullName:{list[i].FullName} Age:{age} Debt:{list[i].Debt}");
-                }
-            }
+            List<Debtor> debtors = list.Where(x=>x.Phone.Contains('8')==false).ToList();
+            debtors.ForEach(x => Console.WriteLine($"FullName:{x.FullName} Age:{CalculateAge(x.BirthDay)} Debt:{x.Debt}"));
+            
         }
         static void DebtorTask8(List<Debtor> list)
         {
@@ -369,7 +361,7 @@ namespace Test
         }
         static List<Debtor> GetDebtorByDomain(List<Debtor> list, string email)
         {
-            List<Debtor> debtors = list.FindAll(x => x.Email == email);
+            List<Debtor> debtors = list.Where(x => x.Email == email).ToList();
 
             return debtors;
         }
@@ -400,7 +392,7 @@ namespace Test
         }
         static List<Debtor> GetDebtorByAmountOfDebt(List<Debtor> list, int debt)
         {
-            List<Debtor> debtors = list.FindAll(x => x.Debt < debt);
+            List<Debtor> debtors = list.Where(x => x.Debt < debt).ToList();
 
             return debtors;
         }
