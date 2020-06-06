@@ -126,6 +126,7 @@ namespace Test
                 string fullName = String.Concat(firstName, lastName);
                
                 List<char> nameChars = fullName.ToLower().ToCharArray().ToList();
+                
                 int oldLength = nameChars.Count;
 
                 foreach (var item in wantedWord)
@@ -222,10 +223,8 @@ namespace Test
         static void DebtorTask15(List<Debtor> list)
         {
             int totalDebtSum = 0;
-            for (int i = 0; i < list.Count; i++)
-            {
-                totalDebtSum += list[i].Debt;
-            }
+            list.ForEach(x => totalDebtSum += x.Debt);
+            
             Console.WriteLine($"\nTotal debt is {totalDebtSum}\n");
         }
         static void DebtorTask14(List<Debtor> list)
