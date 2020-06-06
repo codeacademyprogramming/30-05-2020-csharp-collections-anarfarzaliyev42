@@ -367,16 +367,7 @@ namespace Test
         }
         static List<Debtor> GetDebtorByAge(List<Debtor> list, int minAge, int maxAge)
         {
-            List<Debtor> debtors = new List<Debtor>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                int age = CalculateAge(list[i].BirthDay);
-
-                if (age >= minAge && age <= maxAge)
-                {
-                    debtors.Add(list[i]);
-                }
-            }
+            List<Debtor> debtors = list.Where(x=> CalculateAge(x.BirthDay)>=minAge&& CalculateAge(x.BirthDay)<=maxAge).ToList();
 
             return debtors;
 
